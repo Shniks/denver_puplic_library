@@ -10,4 +10,8 @@ class Library
     books << book
   end
 
+  def include?(title)
+    books.any? { |book| book.title == title }
+  end
+
 end

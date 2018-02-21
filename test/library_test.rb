@@ -43,7 +43,6 @@ class LibraryTest < Minitest::Test
   end
 
   def test_include_method
-    skip
     dpl = Library.new
     charlotte_bronte = Author.new({first_name: "Charlotte", last_name: "Bronte"})
     jane_eyre = charlotte_bronte.write_book("Jane Eyre", "October 16, 1847")
@@ -55,8 +54,8 @@ class LibraryTest < Minitest::Test
     dpl.add_to_collection(mockingbird)
     dpl.add_to_collection(villette)
 
-    assert_equal [jane_eyre, mockingbird, villette], dpl.books
-    assert_equal 3, dpl.books.count
+    assert dpl.include?("To Kill a Mockingbird")
+    refute dpl.include?("A Connecticut Yankee in King Arthur's Court")
   end
 
 end
