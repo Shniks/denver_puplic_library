@@ -58,4 +58,38 @@ class LibraryTest < Minitest::Test
     refute dpl.include?("A Connecticut Yankee in King Arthur's Court")
   end
 
+  def test_card_catalogue #return array of books sorted by authors last name
+    skip
+    dpl = Library.new
+    charlotte_bronte = Author.new({first_name: "Charlotte", last_name: "Bronte"})
+    jane_eyre = charlotte_bronte.write_book("Jane Eyre", "October 16, 1847")
+    villette  = charlotte_bronte.write_book("Villette", "1853")
+    harper_lee  = Author.new({first_name: "Harper", last_name: "Lee"})
+    mockingbird = harper_lee.write_book("To Kill a Mockingbird", "July 11, 1960")
+
+    dpl.add_to_collection(jane_eyre)
+    dpl.add_to_collection(mockingbird)
+    dpl.add_to_collection(villette)
+
+    assert_equal dpl.card_catalogue
+  end
+
+  def test_it_can_find_by_author
+    dpl = Library.new
+    charlotte_bronte = Author.new({first_name: "Charlotte", last_name: "Bronte"})
+    jane_eyre = charlotte_bronte.write_book("Jane Eyre", "October 16, 1847")
+    villette  = charlotte_bronte.write_book("Villette", "1853")
+    harper_lee  = Author.new({first_name: "Harper", last_name: "Lee"})
+    mockingbird = harper_lee.write_book("To Kill a Mockingbird", "July 11, 1960")
+
+    dpl.add_to_collection(jane_eyre)
+    dpl.add_to_collection(mockingbird)
+    dpl.add_to_collection(villette)
+    result = dpl.find_by_author("Charlotte Bronte")
+
+    assert_instance_of Book, result.values[0]
+    assert_equal "October 16, 1847", result.values[0].publication_date
+    assert_equal "1853", result.values[1].publication_date
+  end
+
 end
