@@ -43,6 +43,7 @@ class LibraryTest < Minitest::Test
   end
 
   def test_include_method
+    skip
     dpl = Library.new
     charlotte_bronte = Author.new({first_name: "Charlotte", last_name: "Bronte"})
     jane_eyre = charlotte_bronte.write_book("Jane Eyre", "October 16, 1847")
@@ -57,10 +58,5 @@ class LibraryTest < Minitest::Test
     assert_equal [jane_eyre, mockingbird, villette], dpl.books
     assert_equal 3, dpl.books.count
   end
-
-
-
-
-
 
 end
